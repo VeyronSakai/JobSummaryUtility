@@ -30,12 +30,14 @@ jobs:
         if: ${{ github.event_name != 'pull_request' }}
       - uses: dorny/paths-filter@v3
         id: filter
+        if: ${{ github.event_name != 'pull_request' }}
         with:
           filters: |
             should-build:
               - "Editor/**/*"
               - "Runtime/**/*"
               - "Samples~/**/*"
+              - ".github/workflows/build.yml"
 
   get-unity-version:
     name: Get Unity Version
@@ -57,7 +59,7 @@ jobs:
           echo "unity-version=$(grep "m_EditorVersion:" < "${PROJECT_VERSION_PATH}" | cut -d" " -f2)" >> "${GITHUB_OUTPUT}"
 
   macos:
-    name: macOS
+    name: Build for macOS
     needs: get-unity-version
     runs-on: [self-hosted, macOS]
     steps:
