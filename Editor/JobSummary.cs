@@ -2,7 +2,7 @@
 using System.Threading;
 using JetBrains.Annotations;
 
-namespace JobSummariesUtility
+namespace JobSummaryUtility
 {
     public static class JobSummary
     {
@@ -10,12 +10,12 @@ namespace JobSummariesUtility
         {
             get
             {
-                if (!EnvironmentVariableUtility.IsGitHubActions())
+                if (!EnvironmentVariableRepository.IsGitHubActions())
                 {
                     return false;
                 }
 
-                var stepSummaryPath = EnvironmentVariableUtility.GetGitHubStepSummaryPath();
+                var stepSummaryPath = EnvironmentVariableRepository.GetGitHubStepSummaryPath();
                 if (string.IsNullOrEmpty(stepSummaryPath))
                 {
                     return false;
@@ -52,12 +52,12 @@ namespace JobSummariesUtility
         [CanBeNull]
         private static string GetGitHubStepSummaryPath()
         {
-            if (!EnvironmentVariableUtility.IsGitHubActions())
+            if (!EnvironmentVariableRepository.IsGitHubActions())
             {
                 return null;
             }
 
-            var stepSummaryPath = EnvironmentVariableUtility.GetGitHubStepSummaryPath();
+            var stepSummaryPath = EnvironmentVariableRepository.GetGitHubStepSummaryPath();
             if (string.IsNullOrEmpty(stepSummaryPath))
             {
                 return null;

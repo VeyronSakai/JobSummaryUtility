@@ -219,7 +219,7 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.veyron-sakai.job-summaries-utility": {
+    "com.veyron-sakai.job-summary-utility": {
       "version": "file:../../",
       "depth": 0,
       "source": "local",

@@ -1,6 +1,6 @@
 {
-    "name": "JobSummariesUtility.Editor",
-    "rootNamespace": "JobSummariesUtility",
+    "name": "JobSummaryUtility.Editor",
+    "rootNamespace": "JobSummaryUtility",
     "references": [],
     "includePlatforms": [
         "Editor"

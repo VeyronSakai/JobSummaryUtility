@@ -1,9 +1,9 @@
 {
-    "name": "com.veyron-sakai.job-summaries-utility",
-    "displayName": "JobSummariesUtility",
-    "version": "0.1.0",
-    "description": "Utility to display information in GitHub Actions Job Summaries.",
-    "author": {
-        "name": "Yuki Sakai"
-    }
+  "name": "com.veyron-sakai.job-summary-utility",
+  "displayName": "JobSummaryUtility",
+  "version": "0.1.0",
+  "description": "Utility to display information in GitHub Actions Job Summaries.",
+  "author": {
+    "name": "Yuki Sakai"
+  }
 }
