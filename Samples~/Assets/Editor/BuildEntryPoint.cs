@@ -1,6 +1,7 @@
 // Copyright (c) 2024 VeyronSakai.
 // This software is released under the MIT License.
 
+using JobSummaryUtility;
 using UnityEditor;
 
 namespace Editor
@@ -50,6 +51,8 @@ namespace Editor
             };
 
             BuildPipeline.BuildPlayer(buildPlayerOptions);
+            
+            JobSummary.AppendText("## BuildMacOS");
         }
 
         // ReSharper disable once UnusedMember.Global
