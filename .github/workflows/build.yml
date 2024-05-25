@@ -36,6 +36,7 @@ jobs:
               - "Editor/**/*"
               - "Runtime/**/*"
               - "Samples~/**/*"
+              - ".github/workflows/build.yml"
 
   get-unity-version:
     name: Get Unity Version
