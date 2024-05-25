@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   paths-filter:
-    name: Paths Filter
+    name: Paths Filter for Lint
     if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     outputs:
@@ -26,7 +26,7 @@ jobs:
               - ".github/**"
 
   action:
-    name: Action
+    name: Lint GitHub Actions workflow files
     needs: paths-filter
     if: ${{ needs.paths-filter.outputs.action == 'true' || github.event_name == 'push'}}
     runs-on: ubuntu-latest
