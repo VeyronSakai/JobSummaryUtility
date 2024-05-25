@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace JobSummaryUtility
@@ -37,7 +38,7 @@ namespace JobSummaryUtility
             File.AppendAllText(stepSummaryPath, text);
         }
 
-        public static async void AppendTextAsync(string text, CancellationToken cancellationToken = default)
+        public static async Task AppendTextAsync(string text, CancellationToken cancellationToken = default)
         {
             var stepSummaryPath = GetGitHubStepSummaryPath();
             if (string.IsNullOrEmpty(stepSummaryPath))
@@ -47,7 +48,6 @@ namespace JobSummaryUtility
 
             await File.AppendAllTextAsync(stepSummaryPath, text, cancellationToken);
         }
-
 
         [CanBeNull]
         private static string GetGitHubStepSummaryPath()
