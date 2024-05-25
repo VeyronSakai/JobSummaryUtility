@@ -1,0 +1,78 @@
+name: Build
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      clean:
+        type: boolean
+        default: false
+        description: "clean"
+
+env:
+  CLEAN: ${{ github.event.inputs.clean || false }}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  paths-filter:
+    name: Paths Filter for Build
+    runs-on: ubuntu-latest
+    outputs:
+      should-build: ${{ steps.filter.outputs.should-build }}
+    steps:
+      - uses: actions/checkout@v4
+        if: ${{ github.event_name != 'pull_request' }}
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            should-build:
+              - "Editor/**/*"
+              - "Runtime/**/*"
+              - "Samples~/**/*"
+
+  get-unity-version:
+    name: Get Unity Version
+    needs: paths-filter
+    if: ${{ (github.event_name == 'pull_request' && needs.paths-filter.outputs.should-build == 'true') || github.event_name == 'workflow_dispatch'}}
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_VERSION_PATH: Samples~/ProjectSettings/ProjectVersion.txt
+    outputs:
+      unity-version: ${{ steps.get-unity-version.outputs.unity-version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: ${{ env.PROJECT_VERSION_PATH }}
+          clean: "${{ env.CLEAN }}"
+      - name: Get Unity version
+        id: get-unity-version
+        run: |
+          echo "unity-version=$(grep "m_EditorVersion:" < "${PROJECT_VERSION_PATH}" | cut -d" " -f2)" >> "${GITHUB_OUTPUT}"
+
+  macos:
+    name: macOS
+    needs: get-unity-version
+    runs-on: [self-hosted, macOS]
+    steps:
+      - name: Switch workspace
+        uses: DeNA/setup-job-workspace-action@fea4ef4d011492fe235833241acbb4fced82da27
+      - uses: actions/checkout@v4
+        with:
+          clean: "${{ env.CLEAN }}"
+      - name: macOS Build
+        env:
+          UNITY_VERSION: ${{ needs.get-unity-version.outputs.unity-version }}
+        run: |
+          /Applications/Unity/Hub/Editor/"${UNITY_VERSION}"/Unity.app/Contents/MacOS/Unity \
+            -quit \
+            -batchmode \
+            -nographics \
+            -projectPath ./Samples~ \
+            -executeMethod Editor.BuildEntryPoint.BuildMacOS
