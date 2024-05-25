@@ -1,9 +1,9 @@
 ﻿using System;
 using JetBrains.Annotations;
 
-namespace JobSummariesUtility
+namespace JobSummaryUtility
 {
-    internal static class EnvironmentVariableUtility
+    internal static class EnvironmentVariableRepository
     {
         private const string GitHubStepSummary = "GITHUB_STEP_SUMMARY";
         private const string GitHubActions = "GITHUB_ACTIONS";
