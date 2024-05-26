@@ -61,9 +61,6 @@ jobs:
       SOURCE_BRANCH: github-actions/update-files/${{ github.run_number }}
     steps:
       - uses: actions/checkout@v4
-      - uses: webfactory/ssh-agent@dc588b651fe13675774614f8e6a936a468676387
-        with:
-            ssh-private-key: ${{ secrets.RELEASE_KEY }}
       - name: Update package.json
         run: |
           json_content=$(cat "${PACKAGE_JSON_PATH}")
@@ -92,6 +89,8 @@ jobs:
           new_branch: ${{ env.SOURCE_BRANCH }}
       - name: Create pull request and merge
         if: ${{ steps.commit-package-json.outputs.committed == 'true' || steps.commit-readme.outputs.committed == 'true'}}
+        env:
+            GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           gh pr create --title "Update files for release" --body "Update files for release" --base main --head "${SOURCE_BRANCH}"
           gh pr merge "${SOURCE_BRANCH}" --auto --merge
