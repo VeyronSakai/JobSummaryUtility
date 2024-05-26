@@ -61,6 +61,8 @@ jobs:
       SOURCE_BRANCH: github-actions/update-files/${{ github.run_number }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.RELEASE_KEY }}
       - name: Update package.json
         run: |
           json_content=$(cat "${PACKAGE_JSON_PATH}")
