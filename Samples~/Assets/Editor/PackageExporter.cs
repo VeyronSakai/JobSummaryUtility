@@ -1,7 +1,4 @@
-﻿// Copyright (c) 2024 VeyronSakai.
-// This software is released under the MIT License.
-
-using System.Linq;
+﻿using System.Linq;
 using UnityEditor;
 
 namespace Editor

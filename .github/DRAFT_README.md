@@ -1,6 +1,6 @@
 # JobSummaryUtility
 
-JobSummaryUtility is a utility for Unity to display information in the GitHub Actions job summary.
+JobSummaryUtility is a utility for Unity to display information in the GitHub Actions job summaries.
 
 ## How to use
 
