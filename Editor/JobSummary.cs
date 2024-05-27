@@ -28,7 +28,7 @@ namespace JobSummaryUtility
             }
         }
 
-        public static void AppendAllText(string contents)
+        public static void AppendAllText(string text)
         {
             var stepSummaryPath = GetGitHubStepSummaryPath();
             if (string.IsNullOrEmpty(stepSummaryPath))
@@ -36,10 +36,10 @@ namespace JobSummaryUtility
                 return;
             }
 
-            File.AppendAllText(stepSummaryPath, contents);
+            File.AppendAllText(stepSummaryPath, text);
         }
 
-        public static async Task AppendAllTextAsync(string contents, CancellationToken cancellationToken = default)
+        public static async Task AppendAllTextAsync(string texts, CancellationToken cancellationToken = default)
         {
             var stepSummaryPath = GetGitHubStepSummaryPath();
             if (string.IsNullOrEmpty(stepSummaryPath))
@@ -47,10 +47,10 @@ namespace JobSummaryUtility
                 return;
             }
 
-            await File.AppendAllTextAsync(stepSummaryPath, contents, cancellationToken);
+            await File.AppendAllTextAsync(stepSummaryPath, texts, cancellationToken);
         }
 
-        public static void AppendAllLines(IEnumerable<string> contents)
+        public static void AppendAllLines(IEnumerable<string> texts)
         {
             var stepSummaryPath = GetGitHubStepSummaryPath();
             if (string.IsNullOrEmpty(stepSummaryPath))
@@ -58,10 +58,10 @@ namespace JobSummaryUtility
                 return;
             }
 
-            File.AppendAllLines(stepSummaryPath, contents);
+            File.AppendAllLines(stepSummaryPath, texts);
         }
 
-        public static async Task AppendAllLinesAsync(IEnumerable<string> contents,
+        public static async Task AppendAllLinesAsync(IEnumerable<string> texts,
             CancellationToken cancellationToken = default)
         {
             var stepSummaryPath = GetGitHubStepSummaryPath();
@@ -70,7 +70,7 @@ namespace JobSummaryUtility
                 return;
             }
 
-            await File.AppendAllLinesAsync(stepSummaryPath, contents, cancellationToken);
+            await File.AppendAllLinesAsync(stepSummaryPath, texts, cancellationToken);
         }
 
         [CanBeNull]
