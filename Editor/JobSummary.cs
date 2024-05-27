@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -27,7 +28,7 @@ namespace JobSummaryUtility
             }
         }
 
-        public static void AppendText(string text)
+        public static void AppendAllText(string text)
         {
             var stepSummaryPath = GetGitHubStepSummaryPath();
             if (string.IsNullOrEmpty(stepSummaryPath))
@@ -38,7 +39,7 @@ namespace JobSummaryUtility
             File.AppendAllText(stepSummaryPath, text);
         }
 
-        public static async Task AppendTextAsync(string text, CancellationToken cancellationToken = default)
+        public static async Task AppendAllTextAsync(string texts, CancellationToken cancellationToken = default)
         {
             var stepSummaryPath = GetGitHubStepSummaryPath();
             if (string.IsNullOrEmpty(stepSummaryPath))
@@ -46,7 +47,30 @@ namespace JobSummaryUtility
                 return;
             }
 
-            await File.AppendAllTextAsync(stepSummaryPath, text, cancellationToken);
+            await File.AppendAllTextAsync(stepSummaryPath, texts, cancellationToken);
+        }
+
+        public static void AppendAllLines(IEnumerable<string> texts)
+        {
+            var stepSummaryPath = GetGitHubStepSummaryPath();
+            if (string.IsNullOrEmpty(stepSummaryPath))
+            {
+                return;
+            }
+
+            File.AppendAllLines(stepSummaryPath, texts);
+        }
+
+        public static async Task AppendAllLinesAsync(IEnumerable<string> texts,
+            CancellationToken cancellationToken = default)
+        {
+            var stepSummaryPath = GetGitHubStepSummaryPath();
+            if (string.IsNullOrEmpty(stepSummaryPath))
+            {
+                return;
+            }
+
+            await File.AppendAllLinesAsync(stepSummaryPath, texts, cancellationToken);
         }
 
         [CanBeNull]
