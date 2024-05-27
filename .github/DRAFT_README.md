@@ -7,7 +7,7 @@ JobSummaryUtility is a utility for Unity to display information in the GitHub Ac
 Using the `JobSummaryUtility` namespace, write the following code
 
 ```cs
-JobSummary.AppendText("Hello, World");
+JobSummary.AppendAllText("Hello, World");
 ```
 
 and when you run this process on GitHub Actions, you will see the following in the Job Summary.
