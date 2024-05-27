@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
@@ -27,7 +28,7 @@ namespace JobSummaryUtility
             }
         }
 
-        public static void AppendText(string text)
+        public static void AppendAllText(string contents)
         {
             var stepSummaryPath = GetGitHubStepSummaryPath();
             if (string.IsNullOrEmpty(stepSummaryPath))
@@ -35,10 +36,10 @@ namespace JobSummaryUtility
                 return;
             }
 
-            File.AppendAllText(stepSummaryPath, text);
+            File.AppendAllText(stepSummaryPath, contents);
         }
 
-        public static async Task AppendTextAsync(string text, CancellationToken cancellationToken = default)
+        public static async Task AppendAllTextAsync(string contents, CancellationToken cancellationToken = default)
         {
             var stepSummaryPath = GetGitHubStepSummaryPath();
             if (string.IsNullOrEmpty(stepSummaryPath))
@@ -46,7 +47,30 @@ namespace JobSummaryUtility
                 return;
             }
 
-            await File.AppendAllTextAsync(stepSummaryPath, text, cancellationToken);
+            await File.AppendAllTextAsync(stepSummaryPath, contents, cancellationToken);
+        }
+
+        public static void AppendAllLines(IEnumerable<string> contents)
+        {
+            var stepSummaryPath = GetGitHubStepSummaryPath();
+            if (string.IsNullOrEmpty(stepSummaryPath))
+            {
+                return;
+            }
+
+            File.AppendAllLines(stepSummaryPath, contents);
+        }
+
+        public static async Task AppendAllLinesAsync(IEnumerable<string> contents,
+            CancellationToken cancellationToken = default)
+        {
+            var stepSummaryPath = GetGitHubStepSummaryPath();
+            if (string.IsNullOrEmpty(stepSummaryPath))
+            {
+                return;
+            }
+
+            await File.AppendAllLinesAsync(stepSummaryPath, contents, cancellationToken);
         }
 
         [CanBeNull]

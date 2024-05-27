@@ -48,8 +48,8 @@ namespace Editor
             };
 
             BuildPipeline.BuildPlayer(buildPlayerOptions);
-            
-            JobSummary.AppendText("## BuildMacOS");
+
+            JobSummary.AppendAllText("## BuildMacOS");
         }
 
         // ReSharper disable once UnusedMember.Global
