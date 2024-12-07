@@ -64,7 +64,7 @@ jobs:
     runs-on: [self-hosted, macOS]
     steps:
       - name: Switch workspace
-        uses: DeNA/setup-job-workspace-action@cfd2a6af0a6f6f750d803c1c46091c7bf52f62d7
+        uses: DeNA/setup-job-workspace-action@57538e37da835c5697b3fa18800656cfc9e1c5f9
       - uses: actions/checkout@v4
         with:
           clean: "${{ env.CLEAN }}"
