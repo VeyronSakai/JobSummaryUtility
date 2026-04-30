@@ -26,7 +26,7 @@ jobs:
     outputs:
       should-build: ${{ steps.filter.outputs.should-build }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         if: ${{ github.event_name == 'pull_request' }}
       - uses: dorny/paths-filter@v3
         id: filter
@@ -49,7 +49,7 @@ jobs:
     outputs:
       unity-version: ${{ steps.get-unity-version.outputs.unity-version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           sparse-checkout: ${{ env.PROJECT_VERSION_PATH }}
           clean: "${{ env.CLEAN }}"
@@ -65,7 +65,7 @@ jobs:
     steps:
       - name: Switch workspace
         uses: DeNA/setup-job-workspace-action@57538e37da835c5697b3fa18800656cfc9e1c5f9
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           clean: "${{ env.CLEAN }}"
       - name: macOS Build
