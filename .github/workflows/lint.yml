@@ -18,7 +18,7 @@ jobs:
     outputs:
       action: ${{ steps.filter.outputs.action }}
     steps:
-      - uses: dorny/paths-filter@v3
+      - uses: dorny/paths-filter@d1c1ffe0248fe513906c8e24db8ea791d46f8590
         id: filter
         with:
           filters: |
@@ -31,8 +31,8 @@ jobs:
     if: ${{ needs.paths-filter.outputs.action == 'true' || github.event_name == 'push'}}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: reviewdog/action-actionlint@v1
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+      - uses: reviewdog/action-actionlint@6fb7acc99f4a1008869fa8a0f09cfca740837d9d
         with:
           reporter: github-pr-review
           fail_on_error: true
